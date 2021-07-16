@@ -21,8 +21,9 @@ async function renderToDoData(todo = '', query = '') {
             break;
 
         // Add a To Do Category
-        case 'addtodocat':
-
+        default:
+        case 'todolist':
+            renderToDoList(data);
             break;
     }
 
@@ -79,5 +80,40 @@ function renderToDoCats(data) {
     renderToDoData('addtodocat', 'todoCatTitle=' + todoCat);
 }
 
+/** 
+ * Render To Do List
+ * @param json object data
+ */
+ function renderToDoList(data) {
+    //check if the oject has elements
+    if(Object.keys(data).length<1) {
+        return;
+    }
+
+    let todos = `<tr><td class="tableTodoName">Task</td><td class="tableTodoCat">Category</td></tr>`;
+
+    data.forEach(element => {
+        todos += `<tr`;
+        // check the "done" To Dos
+        if(element.status == "done") {
+            todos += ` class="checked"`;
+        }
+        todos += `>`;
+        todos += `<td todoid="${element.id}">${element.todoText}`;
+        //metabox
+        todos += `<div class="todometa">Due date: ${element.todoDate}</div>`;
+        todos += `<td>${element.todoCat}</td>`;
+        todos += `</td></tr>`;
+    });
+    
+    //place html into the page
+    renderHTML('#todoListItems', todos);
+}
+
+
+
 // Run scripts to load data
+//get categories
 renderToDoData('todocats');
+//get to dos
+renderToDoData('todolist');

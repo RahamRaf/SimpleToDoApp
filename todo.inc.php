@@ -20,7 +20,7 @@ ini_set('display_errors', 1);
         $element = null;
         
         //sanitize the input
-        $todo = $this->sanitize((isset($_REQUEST['todo'])) ? $_REQUEST['todo'] : "list");
+        $todo = $this->sanitize((isset($_REQUEST['todo'])) ? $_REQUEST['todo'] : "todolist");
 
         //get all the to dos
         $todolist = json_decode(file_get_contents($this->jsonfile), true);
@@ -84,7 +84,7 @@ ini_set('display_errors', 1);
                 
                 // List To Dos
                 default:
-                case 'list':
+                case 'todolist':
                     //output list of todos
                     $output = $todolist;
                     break;

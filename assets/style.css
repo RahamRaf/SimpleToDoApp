@@ -2,13 +2,16 @@
     box-sizing: border-box;
   }
   
-  ul {
+  ul, table {
     margin: 0;
     padding: 0;
     list-style: none;
+    width: 100%;
+    border-collapse: collapse;
+    border: none;
   }
   
-  ul li {
+  ul li, table tr {
     cursor: pointer;
     position: relative;
     padding: 12px 8px 12px 40px;
@@ -22,25 +25,37 @@
     user-select: none;
   }
   
+  table tr td {
+    cursor: pointer;
+    padding: 12px 8px 12px 40px;
+    font-size: 18px;
+    transition: 0.2s;
+  
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
   /* Set all odd list items to a different color (zebra-stripes) */
-  ul li:nth-child(odd) {
+  ul li:nth-child(odd), table tr:nth-child(odd) {
     background: #f9f9f9;
   }
   
   /* Darker background-color on hover */
-  ul li:hover {
+  ul li:hover, table tr:hover {
     background: #ddd;
   }
   
   /* When clicked on, add a background color and strike out text */
-  ul li.checked {
+  ul li.checked, tr.checked *{
     background: #888;
     color: #fff;
     text-decoration: line-through;
   }
   
   /* Add a "checked" mark when clicked on */
-  ul li.checked::before {
+  ul li.checked::before, tr.checked > td::before {
     content: '';
     position: absolute;
     border-color: #fff;
@@ -51,6 +66,20 @@
     transform: rotate(45deg);
     height: 15px;
     width: 7px;
+  }
+
+  /* Style the To Dos table header */
+  .tableTodoName {
+      width: 70%;
+      background: #333;
+      color: #eee;
+      text-align: center;
+  }
+  .tableTodoCat {
+    width: 70%;
+    background: #444;
+    color: #eee;
+    text-align: center;
   }
   
   /* Style the close button */
@@ -172,6 +201,14 @@
       color: #eee;
   }
 
+  /* Style the To Do meta box */
+  .todometa {
+        position: unset;
+        float: none;
+        font-size: small;
+        padding-top: 10px;
+  }
+
   /* Style the desktop version */
   @media only screen and (min-width: 700px) {
     #mainDIV, #todoList, #addTodoCat {
@@ -188,5 +225,9 @@
         float: right;
     }
   
-
+    .todometa {
+        position: relative;
+        float: right;
+        font-size: small;
+  }
 }
