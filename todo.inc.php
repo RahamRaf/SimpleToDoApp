@@ -6,6 +6,7 @@
  class todo {
 
     private $jsonfile = 'todos.json';
+    private $jsoncats = 'todocat.json';
 
     /**
      * Construct the class 
@@ -17,7 +18,7 @@
         $todo = $this->sanitize((isset($_REQUEST['todo'])) ? $_REQUEST['todo'] : "list");
 
         //get all the to dos
-        $alltodos = json_decode(file_get_contents($this->jsonfile), true);
+        $todolist = json_decode(file_get_contents($this->jsonfile), true);
 
         // if the API is called to perform an action:
         if(isset($todo)) {
@@ -36,33 +37,39 @@
 
                     // Validate the input strings
                     if($element) {
-                        $alltodos[] = $element;
-                        file_put_contents($this->jsonfile, json_encode($alltodos));
+                        $output = $todolist;
+                        $output[] = $element;
+                        file_put_contents($this->jsonfile, json_encode($output));
                     } 
                     //TODO: create method to return error
 
                     break;
 
                 // delete a task
-                default:
                 case 'deletetodo':
                     $output = array();
                     $id = $this->sanitize($_REQUEST['id']);
-                    foreach($alltodos as $element) { 
+                    foreach($todolist as $element) { 
                         if($id != $element["id"]){ 
                            $output[] = $element; 
                         }
                     }
 
-                    $alltodos = $output;
-                    file_put_contents($this->jsonfile, json_encode($alltodos));
+                    //write to file
+                    file_put_contents($this->jsonfile, json_encode($output));
+                    break;
+
+                default:
+                case 'list':
+                    //output list of todos
+                    $output = $todolist;
                     break;
             }
 
         }
 
         // print out the list of To Dos
-       echo json_encode($alltodos);
+       echo json_encode($output);
 
     }
 
