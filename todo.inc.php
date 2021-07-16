@@ -24,6 +24,11 @@
         if(isset($todo)) {
 
             switch ($todo) {
+                // List categories
+                case 'todocats':
+                    $output = json_decode(file_get_contents($this->jsoncats), true);
+                    break;
+
                 // Add a task
                 case 'addtodo':
                     
@@ -58,7 +63,8 @@
                     //write to file
                     file_put_contents($this->jsonfile, json_encode($output));
                     break;
-
+                
+                // List To Dos
                 default:
                 case 'list':
                     //output list of todos
@@ -68,7 +74,7 @@
 
         }
 
-        // print out the list of To Dos
+        // print out the result as JSON
        echo json_encode($output);
 
     }
