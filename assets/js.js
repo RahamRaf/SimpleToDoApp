@@ -13,13 +13,16 @@ async function getToDoData(todo = '', query = '') {
 // Process the response
 async function renderToDoData(todo = '', query = '') {
     let data = await getToDoData(todo, query);
-    let html = '';
 
     switch (todo) {
-        // Get To Do categories
+        // Get To Do Categories
         case 'todocats':
-            //console.log(data);
             renderToDoCats(data);
+            break;
+
+        // Add a To Do Category
+        case 'addtodocat':
+
             break;
     }
 
@@ -30,9 +33,13 @@ async function renderToDoData(todo = '', query = '') {
  * @param string container
  * @param string html code
  */
-function renderHTML(container, html) {
+function renderHTML(container, html, isAppend = false) {
     let thecontainer = document.querySelector(container);
-    thecontainer.innerHTML = html;
+    if(isAppend==true) {
+        thecontainer.innerHTML += html;
+    } else {
+        thecontainer.innerHTML = html;
+    }
 }
 
 /** 
@@ -46,7 +53,7 @@ function renderToDoCats(data) {
     }
 
     let lis = '';
-    let options = '<option value="">Select a category</option>';
+    let options = '';
 
     data.forEach(element => {
         lis += `<li>${element}</li>`;
@@ -55,7 +62,21 @@ function renderToDoCats(data) {
     
     //place html into the page
     renderHTML('#myCats', lis);
-    renderHTML('#todoCat', options);
+    renderHTML('#todoCat', options, true);
+}
+
+/** 
+ * Adds a new category
+ */
+ function addToDoCat() {
+    var todoCat = document.querySelector("#todoCatTitle").value;
+
+    //add it to category select and list
+    renderHTML('#myCats', `<li>${todoCat}</li>`, true);
+    renderHTML('#todoCat', `<option>${todoCat}</option>`, true);
+
+    //add it to json file
+    renderToDoData('addtodocat', 'todoCatTitle=' + todoCat);
 }
 
 // Run scripts to load data

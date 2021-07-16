@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors', 1);
 
 /**
  * Main class to hanle To Do application
@@ -13,6 +14,10 @@
      * @return string json of todos
      */
     public function __construct() {
+
+        //flush vars
+        $output = null;
+        $element = null;
         
         //sanitize the input
         $todo = $this->sanitize((isset($_REQUEST['todo'])) ? $_REQUEST['todo'] : "list");
@@ -29,14 +34,27 @@
                     $output = json_decode(file_get_contents($this->jsoncats), true);
                     break;
 
+                // Add a cateogry
+                case 'addtodocat':
+                    //Validate data
+                    $element = $this->validateInput(array($_REQUEST['todoCatTitle']));
+                    
+                    if($element) {
+                        $output = json_decode(file_get_contents($this->jsoncats), true);
+                        $output[] = $element[0];
+                        
+                        file_put_contents($this->jsoncats, json_encode($output));
+                    }
+                    break;
+
                 // Add a task
                 case 'addtodo':
                     
                     //Validate and assign data
                     $element = $this->validateInput(array(
-                        "id" => $this->sanitize($_REQUEST['id']),
-                        "todoText" => $this->sanitize($_REQUEST['todoText']),
-                        "todoDate" => $this->sanitize($_REQUEST['todoDate'])
+                        "id" => $_REQUEST['id'],
+                        "todoText" => $_REQUEST['todoText'],
+                        "todoDate" => $_REQUEST['todoDate']
                         )
                     );
 
