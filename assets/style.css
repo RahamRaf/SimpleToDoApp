@@ -5,6 +5,7 @@
   ul {
     margin: 0;
     padding: 0;
+    list-style: none;
   }
   
   ul li {
@@ -65,7 +66,7 @@
     color: white;
   }
   
-  /* Style the header */
+  /* Style the header form */
   .header {
     background-color: #f44336;
     padding: 30px 40px;
@@ -80,33 +81,41 @@
     clear: both;
   }
   
-  /* Style the input */
+  h2 {
+      text-align: center;
+  }
+
+  .devider {
+      clear: both;
+      height: 20px;
+  }
+
   input {
     margin: 0;
     border: none;
     border-radius: 0;
-    width: 55%;
+    width: 60%;
     padding: 10px;
     float: left;
     font-size: 16px;
   }
-  
-  /* Style the "Category" select */
-  select {
-    margin: 0;
-    border: none;
-    border-radius: 0;
-    width: 30%;
-    padding: 10px;
-    float: left;
-    font-size: 16px;
-    background-color: #eee;
+
+  label {
+      float: left;
+      font-size: 16px;
+      color: #eee;
+      width: 15%;
+      padding-top: 10px;
+  }
+
+  #todoDate:before {
+      content: 'Due date and time';
   }
 
   /* Style the "Add" button */
   .addBtn {
     padding: 10px;
-    width: 15%;
+    width: 25%;
     background: #d9d9d9;
     color: #555;
     float: left;
@@ -116,15 +125,64 @@
     transition: 0.3s;
     border-radius: 0;
   }
-  
+
+  /* Style the "Category" select */
+  select {
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    width: 40%;
+    padding: 10px;
+    float: left;
+    font-size: 16px;
+    background-color: #eee;
+  }
+
   .addBtn:hover {
     background-color: #bbb;
   }
+
+  /* Style the To Do List div */
+  #todoList {
+    background-color: #0096b6;
+    padding: 30px 40px;
+  }
   
+  /* Style the To Do Categories div */
+  #addTodoCat {
+    background-color: #82b920;
+    padding: 30px 40px;
+    overflow: auto;
+  }
+  #addTodoCat input {
+      width: 75%;
+  }
+  #addTodoCatForm {
+      width: 100%;
+      float: none;
+      overflow: auto;
+  }
+  #todoCatList {
+    width: 100%;
+    float: none;
+    overflow: auto;
+  }
+
   /* Style the desktop version */
   @media only screen and (min-width: 700px) {
-    #mainDIV {
+    #mainDIV, #todoList, #addTodoCat {
         max-width: 70%;
         margin: auto;
     }
-  }
+
+    #addTodoCatForm {
+        width: 50%;
+        float: left;
+    }
+    #todoCatList {
+        width: 45%;
+        float: right;
+    }
+  
+
+}

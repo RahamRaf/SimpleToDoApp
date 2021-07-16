@@ -23,9 +23,49 @@
             <select id="todoCat" name="todoCat">
                 <option value="">Select Category</option>
             </select>
-            <span onclick="newElement()" class="addBtn">Add</span>
+            <div class="devider"></div>
+            <label for="DueDate">Due date:</label>
+            <input type="date" id="todoDate" name="todoDate" placeholder="2 August 2021" />
+            <span onclick="addToDo()" class="addBtn">Add</span>
           </div>
-        
+
+          <div class="devider"></div>
+
+          <div id="todoList">
+            <h2>My To Dos</h2>
+            <ul id="myUL">
+                <li>Hit the gym</li>
+                <li class="checked">Pay bills</li>
+                <li>Meet George</li>
+                <li>Buy eggs</li>
+                <li>Read a book</li>
+                <li>Organize office</li>
+              </ul>
+          </div>
+
+          <div class="devider"></div>
+
+          <div id="addTodoCat">
+
+            <div id="addTodoCatForm">
+                <h2>Add a Category</h2>
+                <input type="text" name="todoCat" id="todoCat" placeholder="New Category">
+                <span onclick="addToDoCat()" class="addBtn">Add</span>
+            </div>
+
+            <div id="todoCatList">
+                <h2>To Do Categories</h2>
+                <ul id="myCats">
+                    <li>Work</li>
+                    <li class="checked">Sport</li>
+                    <li>Friends</li>
+                    <li>Fun</li>
+                  </ul>
+                
+          </div>
+
+          <div class="devider"></div>
+
 
     </body>
 </html>
