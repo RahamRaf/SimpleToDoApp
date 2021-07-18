@@ -21,7 +21,6 @@ async function renderToDoData(todo = '', query = '') {
             break;
 
         // Add a To Do Category
-        default:
         case 'todolist':
             renderToDoList(data);
             break;
