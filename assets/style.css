@@ -210,6 +210,7 @@
   #todoList {
     background-color: #0096b6;
     padding: 30px 40px;
+    overflow: auto;
   }
   
   /* Style the To Do Categories div */
@@ -242,6 +243,12 @@
         float: none;
         font-size: small;
         padding-top: 10px;
+  }
+
+  /* Filter input style */
+  #todoSearch {
+      width: auto;
+      float: none;
   }
 
   /* Style the desktop version */
