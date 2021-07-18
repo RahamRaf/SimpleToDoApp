@@ -173,7 +173,16 @@ function addToDo() {
  * @param int id of the To Do
  */
  function delToDo(todoID) {
+       //check if the oject is valid
+       if (typeof todoID == "undefined") {
+        return;
+    }
 
+    //delete the to do from json file
+    renderToDoData('deletetodo', 'todoID=' + todoID);
+
+    //hide the row
+    document.querySelector('tr[todoid="' + todoID + '"]').style.display = 'none';
  }
 
 // Run scripts to load data
