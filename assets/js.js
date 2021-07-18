@@ -96,6 +96,32 @@ function delToDoCat(obj) {
     renderToDoData('todocats');
 }
 
+/**
+ * To Do row generator
+ * @param object to do element
+ * @returns string html
+ */
+function renderToDoRow(element) {
+    var html = '';
+
+    html += `<tr todoid="${element.todoID}"`;
+    // check the "done" To Dos
+    if(element.todoStatus == "done") {
+        html += ` class="checked"`;
+    } else if(element.todoStatus == "new") {
+        html += ` class="new"`;
+    }
+    html += `>`;
+    html += `<td>${element.todoText}`;
+    //metabox
+    html += `<div class="todometa">Due date: ${element.todoDate}</div>`;
+    html += `<td>${element.todoCat}<div class="cross" onclick="delToDo('${element.todoID}')"></div></td>`;
+    html += `</tr>`;
+
+    return(html);
+
+}
+
 /** 
  * Render To Do List
  * @param json object data
@@ -107,20 +133,10 @@ function delToDoCat(obj) {
     }
 
     var id = 0;
-    let todos = `<tr><td class="tableTodoName">Task</td><td class="tableTodoCat">Category</td></tr>`;
+    var todos = `<tr><td class="tableTodoName">Task</td><td class="tableTodoCat">Category</td></tr>`;
 
     data.forEach(element => {
-        todos += `<tr todoid="${element.todoID}"`;
-        // check the "done" To Dos
-        if(element.todoStatus == "done") {
-            todos += ` class="checked"`;
-        }
-        todos += `>`;
-        todos += `<td>${element.todoText}`;
-        //metabox
-        todos += `<div class="todometa">Due date: ${element.todoDate}</div>`;
-        todos += `<td>${element.todoCat}<div class="cross" onclick="delToDo('${element.todoID}')"></div></td>`;
-        todos += `</tr>`;
+        todos += renderToDoRow(element);
 
         //get id
         if(id < parseInt(element.todoID)) {
@@ -136,35 +152,35 @@ function delToDoCat(obj) {
 }
 
 /**
- * Adds a To Do
+ * Add a To Do
  */
 function addToDo() {
     //set variables
-    var todoID = document.querySelector('#todoID').value;
-    var todoText = document.querySelector('#todoText').value;
-    var todoDate = document.querySelector('#todoDate').value;
-    var todoCat = document.querySelector('#todoCat').value;
+    var element = {
+        todoID: document.querySelector('#todoID').value,
+        todoText: document.querySelector('#todoText').value,
+        todoDate: document.querySelector('#todoDate').value,
+        todoCat: document.querySelector('#todoCat').value,
+        todoStatus: "new"
+    } 
 
     //Do checks
-    if(todoText == '' || todoCat == '' || todoDate == '') {
+    if(element.todoText == '' || element.todoCat == '' || element.todoDate == '') {
         alert('Please fill out all the fields (Title, Category and Date) and try again!');
         return;
     }
 
-    var html = `<tr class="new" todoid="${todoID}">`;
-    html += `<td>${todoText}<div class="todometa">Due date: ${todoDate}</div></td>`;
-    html += `<td>${todoCat}<div class="cross" onclick="delToDo('${todoID}')"></div></td>`;
-    html += `</tr>`;
+    var html = renderToDoRow(element);
     //add it to page
     renderHTML('#todoListItems', html, true);
 
-    var query = "todoID=" + todoID + "&todoText=" + todoText + "&todoDate=" + todoDate + "&todoCat=" + todoCat + "&todoStatus=new";
+    var query = "todoID=" + element.todoID + "&todoText=" + element.todoText + "&todoDate=" + element.todoDate + "&todoCat=" + element.todoCat + "&todoStatus=newadded";
     
     //add it to json file
     renderToDoData('addtodo', query);
 
     //cleaning up
-    document.querySelector('#todoID').value = parseInt(todoID) + 1;
+    document.querySelector('#todoID').value = parseInt(element.todoID) + 1;
     document.querySelector('#todoText').value = '';
 }
 
