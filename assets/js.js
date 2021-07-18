@@ -84,6 +84,10 @@ function renderToDoCats(data) {
  * @param DOM object
  */
 function delToDoCat(obj) {
+    //check if the oject is valid
+    if (typeof maybeObject == "undefined") {
+        return;
+    }
 
     //delete the category from json file
     renderToDoData('deltodocat', 'todoCatTitle=' + obj.innerText);
@@ -102,6 +106,7 @@ function delToDoCat(obj) {
         return;
     }
 
+    var id = 0;
     let todos = `<tr><td class="tableTodoName">Task</td><td class="tableTodoCat">Category</td></tr>`;
 
     data.forEach(element => {
@@ -116,13 +121,26 @@ function delToDoCat(obj) {
         todos += `<div class="todometa">Due date: ${element.todoDate}</div>`;
         todos += `<td>${element.todoCat}</td>`;
         todos += `</td></tr>`;
+
+        //get id
+        if(id < parseInt(element.id)) {
+            id = parseInt(element.id);
+        }
     });
     
     //place html into the page
     renderHTML('#todoListItems', todos);
+    //set id for next to do
+    document.getElementById('todoID').value = id + 1;
 }
 
+/**
+ * Adds a To Do
+ */
+function addToDo() {
+    //set variables
 
+}
 
 // Run scripts to load data
 //get categories
