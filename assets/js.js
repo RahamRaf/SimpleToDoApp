@@ -145,6 +145,12 @@ function addToDo() {
     var todoDate = document.querySelector('#todoDate').value;
     var todoCat = document.querySelector('#todoCat').value;
 
+    //Do checks
+    if(todoText == '' || todoCat == '' || todoDate == '') {
+        alert('Please fill out all the fields (Title, Category and Date) and try again!');
+        return;
+    }
+
     var html = `<tr class="new" todoid="${todoID}">`;
     html += `<td>${todoText}<div class="todometa">Due date: ${todoDate}</div></td>`;
     html += `<td>${todoCat}<div class="cross" onclick="delToDo('${todoID}')"></div></td>`;
@@ -161,6 +167,14 @@ function addToDo() {
     document.querySelector('#todoID').value = parseInt(todoID) + 1;
     document.querySelector('#todoText').value = '';
 }
+
+/**
+ * Delete a To Do
+ * @param int id of the To Do
+ */
+ function delToDo(todoID) {
+
+ }
 
 // Run scripts to load data
 //get categories
