@@ -43,6 +43,21 @@ ini_set('display_errors', 1);
                         $output = json_decode(file_get_contents($this->jsoncats), true);
                         $output[] = $element[0];
                         
+                        //save data
+                        file_put_contents($this->jsoncats, json_encode($output));
+                    }
+                    break;
+
+                case 'deltodocat':
+                    //Validate data
+                    $element = $this->validateInput(array($_REQUEST['todoCatTitle']));
+
+                    if($element) {
+                        $result = json_decode(file_get_contents($this->jsoncats), true);
+                        //remove the category
+                        $output = array_values(array_diff($result, $element));
+                        
+                        //save data
                         file_put_contents($this->jsoncats, json_encode($output));
                     }
                     break;
@@ -62,6 +77,7 @@ ini_set('display_errors', 1);
                     if($element) {
                         $output = $todolist;
                         $output[] = $element;
+                        //save data
                         file_put_contents($this->jsonfile, json_encode($output));
                     } 
                     //TODO: create method to return error

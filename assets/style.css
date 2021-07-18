@@ -68,6 +68,37 @@
     width: 7px;
   }
 
+  /* Create a cross (close/delete) icon */
+ .cross {
+    width: 20px;
+    height: 20px;
+    position: relative;
+   transform: rotate(45deg);
+   float: right;
+ }
+ 
+ .cross:before, .cross:after {
+   content: "";
+   position: absolute;
+   z-index: -1;
+   background: #d00;
+ }
+ 
+ .cross:before {
+   left: 50%;
+   width: 30%;
+   margin-left: -15%;
+   height: 100%;
+ }
+ 
+ .cross:after {
+   top: 50%;
+   height: 30%;
+   margin-top: -15%;
+   width: 100%;
+ }
+ 
+
   /* Style the To Dos table header */
   .tableTodoName {
       width: 70%;

@@ -54,16 +54,16 @@ function renderToDoCats(data) {
     }
 
     let lis = '';
-    let options = '';
+    let options = '<option value="">Select a category</option>';
 
     data.forEach(element => {
-        lis += `<li>${element}</li>`;
+        lis += `<li>${element}<div class="cross" onclick="delToDoCat(this.parentNode)"></div></li>`;
         options += `<option>${element}</option>`;
     });
     
     //place html into the page
     renderHTML('#myCats', lis);
-    renderHTML('#todoCat', options, true);
+    renderHTML('#todoCat', options);
 }
 
 /** 
@@ -73,11 +73,24 @@ function renderToDoCats(data) {
     var todoCat = document.querySelector("#todoCatTitle").value;
 
     //add it to category select and list
-    renderHTML('#myCats', `<li>${todoCat}</li>`, true);
+    renderHTML('#myCats', `<li>${todoCat}<div class="cross" onclick="delToDoCat(this.parentNode)"></div></li>`, true);
     renderHTML('#todoCat', `<option>${todoCat}</option>`, true);
 
     //add it to json file
     renderToDoData('addtodocat', 'todoCatTitle=' + todoCat);
+}
+
+/**
+ * Delete a category
+ * @param DOM object
+ */
+function delToDoCat(obj) {
+
+    //delete the category from json file
+    renderToDoData('deltodocat', 'todoCatTitle=' + obj.innerText);
+
+    //render category list again
+    renderToDoData('todocats');
 }
 
 /** 
