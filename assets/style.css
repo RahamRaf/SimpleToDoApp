@@ -68,6 +68,10 @@
     width: 7px;
   }
 
+  tr.new {
+      background: #b5cc9b !important;
+  }
+
   /* Create a cross (close/delete) icon */
  .cross {
     width: 20px;

@@ -67,9 +67,11 @@ ini_set('display_errors', 1);
                     
                     //Validate and assign data
                     $element = $this->validateInput(array(
-                        "id" => $_REQUEST['id'],
+                        "todoID" => $_REQUEST['todoID'],
                         "todoText" => $_REQUEST['todoText'],
-                        "todoDate" => $_REQUEST['todoDate']
+                        "todoDate" => $_REQUEST['todoDate'],
+                        "todoCat" => $_REQUEST['todoCat'],
+                        "todoStatus" => $_REQUEST['todoStatus']
                         )
                     );
 
@@ -87,9 +89,9 @@ ini_set('display_errors', 1);
                 // delete a task
                 case 'deletetodo':
                     $output = array();
-                    $id = $this->sanitize($_REQUEST['id']);
+                    $id = $this->sanitize($_REQUEST['todoID']);
                     foreach($todolist as $element) { 
-                        if($id != $element["id"]){ 
+                        if($id != $element["todoID"]){ 
                            $output[] = $element; 
                         }
                     }

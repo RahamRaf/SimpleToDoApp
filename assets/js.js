@@ -110,28 +110,29 @@ function delToDoCat(obj) {
     let todos = `<tr><td class="tableTodoName">Task</td><td class="tableTodoCat">Category</td></tr>`;
 
     data.forEach(element => {
-        todos += `<tr`;
+        todos += `<tr todoid="${element.todoID}"`;
         // check the "done" To Dos
-        if(element.status == "done") {
+        if(element.todoStatus == "done") {
             todos += ` class="checked"`;
         }
         todos += `>`;
-        todos += `<td todoid="${element.id}">${element.todoText}`;
+        todos += `<td>${element.todoText}`;
         //metabox
         todos += `<div class="todometa">Due date: ${element.todoDate}</div>`;
-        todos += `<td>${element.todoCat}</td>`;
-        todos += `</td></tr>`;
+        todos += `<td>${element.todoCat}<div class="cross" onclick="delToDo('${element.todoID}')"></div></td>`;
+        todos += `</tr>`;
 
         //get id
-        if(id < parseInt(element.id)) {
-            id = parseInt(element.id);
+        if(id < parseInt(element.todoID)) {
+            id = parseInt(element.todoID);
         }
     });
     
+    //set id for next to do
+    document.querySelector('#todoID').value = id + 1;
+    
     //place html into the page
     renderHTML('#todoListItems', todos);
-    //set id for next to do
-    document.getElementById('todoID').value = id + 1;
 }
 
 /**
@@ -139,7 +140,26 @@ function delToDoCat(obj) {
  */
 function addToDo() {
     //set variables
+    var todoID = document.querySelector('#todoID').value;
+    var todoText = document.querySelector('#todoText').value;
+    var todoDate = document.querySelector('#todoDate').value;
+    var todoCat = document.querySelector('#todoCat').value;
 
+    var html = `<tr class="new" todoid="${todoID}">`;
+    html += `<td>${todoText}<div class="todometa">Due date: ${todoDate}</div></td>`;
+    html += `<td>${todoCat}<div class="cross" onclick="delToDo('${todoID}')"></div></td>`;
+    html += `</tr>`;
+    //add it to page
+    renderHTML('#todoListItems', html, true);
+
+    var query = "todoID=" + todoID + "&todoText=" + todoText + "&todoDate=" + todoDate + "&todoCat=" + todoCat + "&todoStatus=new";
+    
+    //add it to json file
+    renderToDoData('addtodo', query);
+
+    //cleaning up
+    document.querySelector('#todoID').value = parseInt(todoID) + 1;
+    document.querySelector('#todoText').value = '';
 }
 
 // Run scripts to load data
