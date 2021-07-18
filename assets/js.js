@@ -85,7 +85,7 @@ function renderToDoCats(data) {
  */
 function delToDoCat(obj) {
     //check if the oject is valid
-    if (typeof maybeObject == "undefined") {
+    if (typeof obj == "undefined") {
         return;
     }
 
