@@ -47,18 +47,17 @@ function renderHTML(container, html, isAppend = false) {
  * @param json object data
  */
 function renderToDoCats(data) {
-    //check if the oject has elements
-    if(Object.keys(data).length<1) {
-        return;
-    }
 
     let lis = '';
     let options = '<option value="">Select a category</option>';
 
-    data.forEach(element => {
-        lis += `<li>${element}<div class="cross" onclick="delToDoCat(this.parentNode)"></div></li>`;
-        options += `<option>${element}</option>`;
-    });
+    //check if the oject has elements
+    if(data!=null && Object.keys(data).length>0) {    
+        data.forEach(element => {
+            lis += `<li>${element}<div class="cross" onclick="delToDoCat(this.parentNode)"></div></li>`;
+            options += `<option>${element}</option>`;
+        });
+    }
     
     //place html into the page
     renderHTML('#myCats', lis);
@@ -159,6 +158,10 @@ function renderToDoRow(element) {
  * @param json object data
  */
  function renderToDoList(data) {
+    if(data == null || Object.keys(data).length<1) {
+        return;
+    }
+
 
     var id = 0;
     var todos = `<tr><td class="tableTodoName">Task</td><td class="tableTodoCat">Category</td></tr>`;
