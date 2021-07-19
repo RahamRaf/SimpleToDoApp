@@ -115,6 +115,9 @@
     color: #eee;
     text-align: center;
   }
+  #todoListItems td:nth-child(2n+1) {
+    width: 70%;
+  }
   
   /* Style the close button */
   .close {
