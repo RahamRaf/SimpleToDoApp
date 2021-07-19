@@ -99,6 +99,23 @@ ini_set('display_errors', 1);
                     //write to file
                     file_put_contents($this->jsonfile, json_encode($output));
                     break;
+
+                case 'checktodo':
+                    $output = array();
+                    $id = $this->sanitize($_REQUEST['todoID']);
+                    foreach($todolist as $element) { 
+                        if($id == $element["todoID"]){
+                           $element['todoStatus'] = 'done';
+                           $output[] = $element; 
+                        } else {
+                            $output[] = $element;
+                        }
+                    }
+
+                    //write to file
+                    file_put_contents($this->jsonfile, json_encode($output));
+
+                    break;
                 
                 // List To Dos
                 default:

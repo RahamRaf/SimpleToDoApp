@@ -123,7 +123,7 @@ function renderToDoMenu(todoID){
     
     // add menu
     var tr = document.querySelector('tr[todoid="' + todoID + '"]');
-    tr.innerHTML += `<div id="todoMenu_${todoID}" class="todoMenuOpen"><div class="cross" onclick="removeObj('${todomenuid}')"></div><span>Mark as done</span><span onclick="delToDo('${todoID}')">Delete</span></div>`;
+    tr.innerHTML += `<div id="todoMenu_${todoID}" class="todoMenuOpen"><div class="cross" onclick="removeObj('${todomenuid}')"></div><span onclick="checkToDo('${todoID}')">Mark as done</span><span onclick="delToDo('${todoID}')">Delete</span></div>`;
     
 }
 
@@ -221,17 +221,37 @@ function addToDo() {
  * @param int id of the To Do
  */
  function delToDo(todoID) {
-       //check if the oject is valid
-       if (typeof todoID == "undefined") {
+    //check if the oject is valid
+    if (typeof todoID == "undefined") {
         return;
     }
 
     //delete the to do from json file
     renderToDoData('deletetodo', 'todoID=' + todoID);
 
-    //hide the row
-    document.querySelector('tr[todoid="' + todoID + '"]').style.display = 'none';
+    //remove the row
+    removeObj(`tr[todoid="${todoID}"]`);
  }
+
+ /**
+  * Mark the to do as done
+  * @param {*} todoID 
+  */
+function checkToDo(todoID) {
+    //check if the oject is valid
+    if (typeof todoID == "undefined") {
+        return;
+    }
+
+    //change the style in page
+    document.querySelector(`tr[todoid="${todoID}"]`).classList.add("checked");
+
+    //remove the menu
+    removeObj(`#todoMenu_${todoID}`);
+
+    //delete the to do from json file
+    renderToDoData('checktodo', 'todoID=' + todoID);
+}
 
 /**
  * Filters todo table by search
