@@ -1,7 +1,7 @@
 
 // Call to API
 async function getToDoData(todo = '', query = '') {
-    let url = 'http://localhost/teamblue/api.php?todo=' + todo + '&' + query;
+    let url = 'api.php?todo=' + todo + '&' + query;
     try {
         let res = await fetch(url);
         return await res.json();
@@ -164,7 +164,7 @@ function renderToDoRow(element) {
 
 
     var id = 0;
-    var todos = `<tr><td class="tableTodoName">Task</td><td class="tableTodoCat">Category</td></tr>`;
+    var todos = '';
 
     data.forEach(element => {
         todos += renderToDoRow(element);
