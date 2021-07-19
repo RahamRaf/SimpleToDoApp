@@ -263,14 +263,15 @@
 .todoMenuOpen {
     position: absolute;
     right: 0;
-    width: 250px;
+    width: 100%;
     background: #12434d;
     color: #eee;
     padding: 20px 30px;
     z-index: 1000;
 }
-.todoMenuOpen * {
-    text-decoration: none !important;
+.todoMenuOpen span {
+    padding-right: 25px;
+    cursor: pointer;
 }
 
   /* Style the desktop version */

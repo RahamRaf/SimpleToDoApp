@@ -123,7 +123,7 @@ function renderToDoMenu(todoID){
     
     // add menu
     var tr = document.querySelector('tr[todoid="' + todoID + '"]');
-    tr.innerHTML += `<div id="todoMenu_${todoID}" class="todoMenuOpen"><div class="cross" onclick="removeObj('${todomenuid}')"></div><span>Click on me</span></div>`;
+    tr.innerHTML += `<div id="todoMenu_${todoID}" class="todoMenuOpen"><div class="cross" onclick="removeObj('${todomenuid}')"></div><span>Mark as done</span><span onclick="delToDo('${todoID}')">Delete</span></div>`;
     
 }
 
