@@ -159,10 +159,6 @@ function renderToDoRow(element) {
  * @param json object data
  */
  function renderToDoList(data) {
-    //check if the oject has elements
-    if(Object.keys(data).length<1) {
-        return;
-    }
 
     var id = 0;
     var todos = `<tr><td class="tableTodoName">Task</td><td class="tableTodoCat">Category</td></tr>`;
@@ -198,7 +194,7 @@ function addToDo() {
 
     //Do checks
     if(element.todoText == '' || element.todoCat == '' || element.todoDate == '') {
-        alert('Please fill out all the fields (Title, Category and Date) and try again!');
+        alert('Please fill out all the fields (Title, Category and Date) and try again!\nAdd a new category in case if it is your first time using the app.');
         return;
     }
 
