@@ -97,6 +97,37 @@ function delToDoCat(obj) {
 }
 
 /**
+ * Removes an object from page
+ * @param {*} objID 
+ */
+function removeObj(objID) {
+
+    var obj = document.querySelector(objID);
+    //remove it if it exists
+    if (typeof(obj) != 'undefined' && obj != null) {
+        obj.remove();
+    }
+    
+}
+
+/**
+ * Draw todo menu
+ * @param integer to do id
+ */
+function renderToDoMenu(todoID){
+    //set object id for menu
+    var todomenuid = "#todoMenu_" + todoID;
+    
+    // remove it to avoid double menu
+    removeObj(todomenuid);
+    
+    // add menu
+    var tr = document.querySelector('tr[todoid="' + todoID + '"]');
+    tr.innerHTML += `<div id="todoMenu_${todoID}" class="todoMenuOpen"><div class="cross" onclick="removeObj('${todomenuid}')"></div><span>Click on me</span></div>`;
+    
+}
+
+/**
  * To Do row generator
  * @param object to do element
  * @returns string html
@@ -108,6 +139,7 @@ function renderToDoRow(element) {
     // check the "done" To Dos
     if(element.todoStatus == "done") {
         html += ` class="checked"`;
+    // change the background color for new to do
     } else if(element.todoStatus == "new") {
         html += ` class="new"`;
     }
@@ -115,7 +147,7 @@ function renderToDoRow(element) {
     html += `<td>${element.todoText}`;
     //metabox
     html += `<div class="todometa">Due date: ${element.todoDate}</div>`;
-    html += `<td>${element.todoCat}<div class="cross" onclick="delToDo('${element.todoID}')"></div></td>`;
+    html += `<td>${element.todoCat}<div class="todoMenu" onclick="renderToDoMenu('${element.todoID}')"></div></td>`;
     html += `</tr>`;
 
     return(html);
